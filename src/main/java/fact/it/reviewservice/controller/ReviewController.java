@@ -32,9 +32,14 @@ public class ReviewController {
         return reviewRepository.findAll();
     }
 
-    @GetMapping("/reviews/{auteur}")
+    @GetMapping("/reviews/auteur/{auteur}")
     public List<Review> getAllByAuteur(@PathVariable String auteur){
         return reviewRepository.findAllByAuteur(auteur);
+    }
+
+    @GetMapping("/reviews/code/{routeCode}")
+    public List<Review> getAllByRouteCode(@PathVariable String routeCode){
+        return reviewRepository.findAllByRouteId(routeCode);
     }
 
     @PostMapping("/reviews")
