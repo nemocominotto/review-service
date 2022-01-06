@@ -16,9 +16,9 @@ public class ReviewController {
     @PostConstruct
     public void fillDB(){
         if(reviewRepository.count()==0){
-            reviewRepository.save(new Review("Nemo Cominotto", "Leopoldsburg - hasselt", "een goede rit", "3970"));
-            reviewRepository.save(new Review("Luca Cominotto", "Heppen - Leopodsburg centrum", "een goede rit maar ver", "3971"));
-            reviewRepository.save(new Review("Fira Bausmans", "Hasselt - Stevoort", "een toffe rit en niet te ver", "3500"));
+            reviewRepository.save(new Review("Nemo Cominotto", "Leopoldsburg - hasselt", "een goede rit", "123"));
+            reviewRepository.save(new Review("Luca Cominotto", "Heppen - Leopodsburg centrum", "een goede rit maar ver", "123"));
+            reviewRepository.save(new Review("Fira Bausmans", "Hasselt - Stevoort", "een toffe rit en niet te ver", "456"));
         }
 
         System.out.println("Review test" + reviewRepository.findAllByAuteur("Nemo Cominotto").size());
@@ -40,6 +40,11 @@ public class ReviewController {
     @GetMapping("/reviews/code/{routeCode}")
     public List<Review> getAllByRouteCode(@PathVariable String routeCode){
         return reviewRepository.findAllByRouteId(routeCode);
+    }
+
+    @GetMapping("/reviews/auteurs/{auteur}/routeCode/{routeCode}")
+    public List<Review> getAllReviewsByCodeAndAuteur(@PathVariable String auteur, @PathVariable String routeCode){
+        return reviewRepository.findAllByAuteurAndRouteId(auteur, routeCode);
     }
 
     @PostMapping("/reviews")
