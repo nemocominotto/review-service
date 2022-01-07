@@ -21,8 +21,7 @@ public class ReviewController {
             reviewRepository.save(new Review("Luca Cominotto", "Heppen - Leopodsburg centrum", "een goede rit maar ver", "123"));
             reviewRepository.save(new Review("Fira Bausmans", "Hasselt - Stevoort", "een toffe rit en niet te ver", "456"));
         }
-
-        System.out.println("Review test" + reviewRepository.findAllByAuteur("Nemo Cominotto").size());
+//        System.out.println("Review test" + reviewRepository.findAllByAuteur("Nemo Cominotto").size());
     }
 
     @Autowired
@@ -32,6 +31,7 @@ public class ReviewController {
     public List<Review> all() {
         return reviewRepository.findAll();
     }
+
 
     @GetMapping("/reviews/auteur/{auteur}")
     public List<Review> getAllByAuteur(@PathVariable String auteur){
@@ -74,6 +74,7 @@ public class ReviewController {
         if(review!=null){
             reviewRepository.delete(review);
         }
+
         return ResponseEntity.ok().build();
     }
 }
