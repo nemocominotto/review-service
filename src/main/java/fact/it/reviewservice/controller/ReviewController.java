@@ -3,6 +3,7 @@ package fact.it.reviewservice.controller;
 import fact.it.reviewservice.model.Review;
 import fact.it.reviewservice.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,13 +49,13 @@ public class ReviewController {
     }
 
     @PostMapping("/reviews")
-    public List<Review> addReview(@RequestBody Review review){
+    public Review addReview(@RequestBody Review review){
         reviewRepository.save(review);
-        return reviewRepository.findAll();
+        return review;
     }
 
     @PutMapping("/reviews")
-    public List<Review> updateReview(@RequestBody Review updateReview){
+    public Review updateReview(@RequestBody Review updateReview){
         Review newReview = reviewRepository.findReviewById(updateReview.getId());
 
         newReview.setContent(updateReview.getContent());
@@ -64,15 +65,15 @@ public class ReviewController {
 
         reviewRepository.save(newReview);
 
-        return reviewRepository.findAll();
+        return newReview;
     }
 
     @DeleteMapping("/reviews/{id}")
-    public List<Review> deleteReview(@PathVariable String id){
+    public ResponseEntity deleteReview(@PathVariable String id){
         Review review = reviewRepository.findReviewById(id);
         if(review!=null){
             reviewRepository.delete(review);
         }
-        return reviewRepository.findAll();
+        return ResponseEntity.ok().build();
     }
 }
