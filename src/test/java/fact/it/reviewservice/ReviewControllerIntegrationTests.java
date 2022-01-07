@@ -54,6 +54,36 @@ public class ReviewControllerIntegrationTests {
     private ObjectMapper mapper = new ObjectMapper();
 
     @Test
+    public void whengetReviews_thenReturnJson£Reviews() throws Exception {
+
+        mockMvc.perform(get("/reviews"))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(4)))
+
+                .andExpect(jsonPath("$[0].auteur", is("Nemo Cominotto")))
+                .andExpect(jsonPath("$[0].titel", is("Leopoldsburg - hasselt")))
+                .andExpect(jsonPath("$[0].content", is("een goede rit")))
+                .andExpect(jsonPath("$[0].routeId", is("123")))
+
+                .andExpect(jsonPath("$[1].auteur", is("Luca Cominotto")))
+                .andExpect(jsonPath("$[1].titel", is("Heppen - Leopodsburg centrum")))
+                .andExpect(jsonPath("$[1].content", is("een goede rit maar ver")))
+                .andExpect(jsonPath("$[1].routeId", is("123")))
+
+                .andExpect(jsonPath("$[2].auteur", is("Fira Bausmans")))
+                .andExpect(jsonPath("$[2].titel", is("Hasselt - Stevoort")))
+                .andExpect(jsonPath("$[2].content", is("een toffe rit en niet te ver")))
+                .andExpect(jsonPath("$[2].routeId", is("456")))
+
+                .andExpect(jsonPath("$[3].auteur", is("Nemo Cominotto")))
+                .andExpect(jsonPath("$[3].titel", is("Leopoldsburg - hasselt")))
+                .andExpect(jsonPath("$[3].content", is("een goede rit")))
+                .andExpect(jsonPath("$[3].routeId", is("456")));
+
+
+    }
+    @Test
     public void getreviewByAuteurAndRouteID() throws Exception {
         mockMvc.perform(get("/reviews/auteurs/{auteur}/routeCode/{routeCode}", "Luca Cominotto", "123"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -119,10 +149,10 @@ public class ReviewControllerIntegrationTests {
 //    @Test
 //    public void PutTest() throws Exception {
 //
-//        Review nieuweReview = new Review("Jetze Janssens", "Ham", "Toffe rit met lekker ijsje", "789");
+//        Review UpdatedReview = new Review("Jetze Janssens", "Ham", "Toffe rit met lekker ijsje", "789");
 //
 //        mockMvc.perform(put("/reviews")
-//                .content(mapper.writeValueAsString(nieuweReview))
+//                .content(mapper.writeValueAsString(UpdatedReview))
 //                .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isOk())
