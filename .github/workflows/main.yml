@@ -20,19 +20,18 @@ jobs:
         with:
           mongodb-version: 4.2
 
-#          Hier moet je nog verbinden met sonarcloud en die syntax die hij geeft plakken en onderstaande vervangen
-#      - name: Build and analyze
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=JetzeJanssens_gemeente-service
+      - name: Build and analyze
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=nemocominotto_review-service
 
-#        Voor de Docker moet ge nog mijn Docker account aan uw github secrets toevoegen en dan uit commentaar halen
-#      - name: Docker login
-#        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
-#
-#      - name: Docker Build
-#        run: docker build -t ${{ secrets.DOCKER_USER }}/review-service:latest .
-#
-#      - name: Upload container to Docker Hub with Push
-#        run: docker push ${{ secrets.DOCKER_USER }}/review-service:latest
+
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Docker Build
+        run: docker build -t ${{ secrets.DOCKER_USER }}/review-service:latest .
+
+      - name: Upload container to Docker Hub with Push
+        run: docker push ${{ secrets.DOCKER_USER }}/review-service:latest
